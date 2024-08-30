@@ -20,7 +20,7 @@ class Question {
 
 class QuizGUI {
     private JFrame frame;
-    private JPanel panel;
+    private JPanel panel, optionsPanel;
     private JLabel questionLabel;
     private JRadioButton[] optionButtons;
     private ButtonGroup optionsGroup;
@@ -36,9 +36,22 @@ class QuizGUI {
     public QuizGUI() {
         frame = new JFrame("Quiz Application");
         panel = new JPanel();
-        questionLabel = new JLabel("");
+        optionsPanel = new JPanel();
+        questionLabel = new JLabel("", SwingConstants.CENTER);
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 24));  // Increase font size
+        frame.add(questionLabel, BorderLayout.NORTH);
         optionButtons = new JRadioButton[4];
+        for (int i = 0; i < 4; i++) {
+            optionButtons[i] = new JRadioButton();
+            optionButtons[i].setFont(new Font("Arial", Font.PLAIN, 18));  // Increase font size
+            panel.add(optionButtons[i]);
+        }
+
+        frame.add(optionsPanel, BorderLayout.CENTER);
         optionsGroup = new ButtonGroup();
+        for (JRadioButton optionButton : optionButtons) {
+            optionsGroup.add(optionButton);  // Add each optionButton to optionsGroup
+        }
         submitButton = new JButton("Submit");
         timerLabel = new JLabel("Time left: 30");
 
@@ -51,7 +64,6 @@ class QuizGUI {
 
         panel.add(questionLabel);
         for (int i = 0; i < optionButtons.length; i++) {
-            optionButtons[i] = new JRadioButton();
             optionsGroup.add(optionButtons[i]);
             panel.add(optionButtons[i]);
         }
@@ -59,7 +71,7 @@ class QuizGUI {
         panel.add(submitButton);
 
         frame.add(panel);
-        frame.setSize(500, 500);
+        frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
